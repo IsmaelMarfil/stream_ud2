@@ -144,7 +144,10 @@ class TestExamenStream {
             List<Oficina> list = oficinaHome.findAll();
 
             //TODO STREAMS
-            var solList = list.stream();
+            var solList = list.stream().filter(oficina -> oficina.getPais().equals("España"))
+                    .sorted(Comparator.comparing(Oficina::getCiudad))
+
+                    .map(oficina -> "Ciudad: " + oficina.getCiudad() + " Telefono: " + oficina.getTelefono()).collect(toList());
 
             solList.forEach(System.out::println);
 
@@ -172,7 +175,12 @@ class TestExamenStream {
             List<Empleado> list = empleadoHome.findAll();
 
             //TODO STREAMS
-            var solList = list.stream();
+            var solList = list.stream().
+                    filter(empleado -> empleado.getJefe() != null)
+                    .filter(empleado -> empleado.getJefe().getCodigoEmpleado()==7)
+
+                    .map(empleado -> "Nombre: " + empleado.getNombre() + " Apellidos: " + empleado.getApellido1() + " " + empleado.getApellido2() + " Email: " + empleado.getEmail()).collect(toList());
+
 
             solList.forEach(System.out::println);
 
@@ -200,7 +208,8 @@ class TestExamenStream {
             List<Cliente> list = clienteHome.findAll();
 
             //TODO STREAMS
-            var solList = list.stream();
+            var solList = list.stream().sorted(Comparator.comparing((Cliente cliente) -> cliente.getRepresentanteVentas().getApellido1()).thenComparing(Cliente::getNombreCliente).reversed())
+                            .map(cliente -> "Nombre " + cliente.getNombreCliente() + " Representante " + cliente.getRepresentanteVentas().getNombre() + " " + cliente.getRepresentanteVentas().getApellido1()).collect(toList());
 
             solList.forEach(System.out::println);
 
@@ -238,7 +247,8 @@ class TestExamenStream {
             }
 
             //TODO STREAMS
-            var solList = list.stream();
+            var solList = list.stream().filter(pedido -> pedido.getEstado().equalsIgnoreCase("Rechazado"))
+                    .filter(pedido -> pedido.getFechaPedido().toString().substring(0,4));
 
             solList.forEach(System.out::println);
 
@@ -264,7 +274,7 @@ class TestExamenStream {
             List<Cliente> list = clienteHome.findAll();
 
             //TODO STREAMS
-            var solList = list.stream();
+            var solList = list.stream().filter(cliente -> cliente.getPais().equalsIgnoreCase("España"));
 
             solList.forEach(System.out::println);
 
@@ -291,7 +301,7 @@ class TestExamenStream {
             List<Oficina> list = oficinaHome.findAll();
 
             //TODO STREAMS
-            var solList = list.stream();
+            var solList = list.stream().filter(oficina -> oficina.ge);
 
             solList.forEach(System.out::println);
 
